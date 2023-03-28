@@ -175,6 +175,8 @@ cython_debug/
 my_lib_install.sh
 Prototype/
 prototype/
+Trash/
+trash/
 Prototype*.py
 prototype*.py
 */media/
