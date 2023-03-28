@@ -9,17 +9,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 from .permissions import FollowPermissions, IsAuthorOrReadOnly
-from .serializers import CommentSerializer, FollowSerializer, GroupSerializer, PostSerializer
-# from .serializers import CommentSerializer as Cs
-# from .serializers import FollowSerializer as Fs
-# from .serializers import GroupSerializer as Gs
-# from .serializers import PostSerializer as Ps
+from .serializers import CommentSerializer as Cs
+from .serializers import FollowSerializer as Fs
+from .serializers import GroupSerializer as Gs
+from .serializers import PostSerializer as Ps
 
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
-    # serializer_class = Ps
-    serializer_class = PostSerializer
+    serializer_class = Ps
     pagination_class = LimitOffsetPagination
     permission_classes = (IsAuthorOrReadOnly,)
 
@@ -33,8 +31,7 @@ class PostViewSet(ModelViewSet):
 
 
 class CommentViewSet(ModelViewSet):
-    # serializer_class = Cs
-    serializer_class = CommentSerializer
+    serializer_class = Cs
     permission_classes = (IsAuthorOrReadOnly,)
 
     def get_queryset(self):
@@ -52,8 +49,7 @@ class CommentViewSet(ModelViewSet):
 
 
 class FollowViewSet(ModelViewSet):
-    # serializer_class = Fs
-    serializer_class = FollowSerializer
+    serializer_class = Fs
     permission_classes = (IsAuthenticated, FollowPermissions)
     filter_backends = (filters.SearchFilter,)
     filterset_fields = ("following", "user")
@@ -69,6 +65,5 @@ class FollowViewSet(ModelViewSet):
 
 class GroupViewSet(ReadOnlyModelViewSet):
     queryset = Group.objects.all()
-    # serializer_class = Gs
-    serializer_class = GroupSerializer
-    permission_classes = (IsAuthorOrReadOnly)
+    serializer_class = Gs
+    permission_classes = (IsAuthorOrReadOnly,)
