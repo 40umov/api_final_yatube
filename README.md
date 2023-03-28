@@ -49,6 +49,11 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
+Все endpoints запросов к API можно получить используя команду:
+
+```
+python manage.py show_urls
+````
 
 ### Примеры запросов к API
 
