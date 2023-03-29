@@ -38,13 +38,11 @@ class CommentSerializer(serializers.ModelSerializer):
         slug_field='username',
         default=serializers.CurrentUserDefault()
     )
-    post = serializers.PrimaryKeyRelatedField(
-        read_only=True
-    )
 
     class Meta:
         fields = '__all__'
         model = Comment
+        read_only = True
 
 
 class FollowSerializer(serializers.ModelSerializer):
