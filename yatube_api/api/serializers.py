@@ -42,7 +42,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Comment
-        read_only = True
+        read_only_fields = ('post',)
 
 
 class FollowSerializer(serializers.ModelSerializer):
