@@ -3,7 +3,6 @@ from datetime import datetime
 from django.shortcuts import get_object_or_404
 from posts.models import Comment, Follow, Group, Post
 from rest_framework import filters
-from rest_framework.exceptions import PermissionDenied
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
@@ -22,10 +21,6 @@ class PostViewSet(ModelViewSet):
     permission_classes = (IsAuthorOrReadOnly,)
 
     def perform_create(self, serializer):
-        if not self.request.user.is_authenticated:
-            raise PermissionDenied(
-                "You must be authenticated to create a posts."
-            )
         serializer.save(author=self.request.user,
                         pub_date=datetime.now())
 
@@ -39,10 +34,6 @@ class CommentViewSet(ModelViewSet):
         return Comment.objects.filter(post=post)
 
     def perform_create(self, serializer):
-        if not self.request.user.is_authenticated:
-            raise PermissionDenied(
-                "You must be authenticated to create a comment."
-            )
         post = get_object_or_404(Post, id=self.kwargs["post_id"])
         serializer.save(author=self.request.user,
                         created=datetime.now(), post=post)
