@@ -21,8 +21,7 @@ class PostViewSet(ModelViewSet):
     permission_classes = (IsAuthorOrReadOnly,)
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user,
-                        pub_date=datetime.now())
+        serializer.save(author=self.request.user)
 
 
 class CommentViewSet(ModelViewSet):
