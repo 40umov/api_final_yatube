@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from posts.models import Comment, Follow, Group, Post
+from posts.models import Follow, Group, Post
 from rest_framework import filters, mixins, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
@@ -30,9 +30,8 @@ class CommentViewSet(ModelViewSet):
 
     def get_queryset(self):
         post_id = self.kwargs.get("post_id")
-        if post_id:
-            return Comment.objects.filter(post_id=post_id)
-        return Comment.objects.all()
+        post = get_object_or_404(Post, id=post_id)
+        return post.comments.all()
 
     def perform_create(self, serializer):
         post = get_object_or_404(Post, id=self.kwargs["post_id"])
